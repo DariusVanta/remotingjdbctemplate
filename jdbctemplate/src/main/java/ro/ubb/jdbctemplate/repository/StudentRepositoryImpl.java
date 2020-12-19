@@ -21,4 +21,22 @@ public class StudentRepositoryImpl implements StudentRepository {
             return new Student(id, name, grade);
         });
     }
+
+    @Override
+    public void save(Student student) {
+        String sql = "insert into student (name,grade) values (?,?)";
+        jdbcOperations.update(sql,student.getName(),student.getGrade());
+    }
+
+    @Override
+    public void update(Student student) {
+        String sql = "update student set name = ?, grade = ? where id = ?";
+        jdbcOperations.update(sql,student.getName(),student.getGrade(),student.getId());
+    }
+
+    @Override
+    public void delete(Long id) {
+        String sql = "delete from student where id=?";
+        jdbcOperations.update(sql,id);
+    }
 }
